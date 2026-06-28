@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: api-deployment
 spec:
-  replicas: 2 # On demande 2 copies (pods) de l'API pour la haute disponibilité
+  replicas: 3
   selector:
     matchLabels:
       app: my-api
@@ -24,4 +24,4 @@ spec:
           value: "mon-bucket-terraform"
         - name: QUEUE_URL
           value: "http://sqs.eu-west-3.localhost.localstack.cloud:4566/000000000000/ma-file-terraform" 
-          # 💡 Vérifie bien ce nom : il doit correspondre au nom défini dans ton terraform
+       
