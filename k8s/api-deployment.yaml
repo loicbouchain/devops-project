@@ -29,5 +29,5 @@ spec:
         - name: BUCKET_NAME
           value: "mon-bucket-terraform"
         - name: QUEUE_URL
-          value: "http://sqs.eu-west-3.localhost.localstack.cloud:4566/000000000000/ma-file-terraform" 
+          value: "http://host.docker.internal:4566/000000000000/ma-file-terraform" 
        
