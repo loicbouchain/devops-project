@@ -7,7 +7,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: worker-deployment # -> de worker-deploymùent
+    name: my-worker # -> de worker-deploymùent
   minReplicaCount: 0  # si pas de msg 
   maxReplicaCount: 5  # max 5 pods
   cooldownPeriod:  30  # Attend 30 secondes avant de détruire les pods inutiles
