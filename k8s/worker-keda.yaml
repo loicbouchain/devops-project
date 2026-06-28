@@ -1,0 +1,22 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: worker-scaler
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: worker-deployment # -> de worker-deploymùent
+  minReplicaCount: 0  # si pas de msg 
+  maxReplicaCount: 5  # max 5 pods
+  cooldownPeriod:  30  # Attend 30 secondes avant de détruire les pods inutiles
+  
+  triggers:
+  - type: aws-sqs
+    metadata:
+      queueURL: "hhttp://sqs.eu-west-3.localhost.localstack.cloud:4566/000000000000/ma-file-terraform"
+      queueLength: "2"
+      awsRegion: "eu-west-3"
+    authenticationRef:
+      name: keda-aws-credentials
