@@ -15,6 +15,12 @@ spec:
      containers:
       - name: api
         image: mon-api:v1
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 3000
+          initialDelaySeconds: 5 
+          periodSeconds: 10
         env:
         - name: AWS_REGION
           value: "eu-west-3"

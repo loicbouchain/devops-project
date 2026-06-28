@@ -43,4 +43,8 @@ app.post('/upload', async (req, res) => {
   }
 });
 
+app.get('/health', async (req, res) => {
+  res.status(200).json({ status: "API en ligne" });
+});
+
 app.listen(3000, () => console.log('🚀 API démarrée sur le port 3000'));
