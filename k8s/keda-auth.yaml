@@ -7,6 +7,7 @@ type: Opaque
 data:
   AWS_ACCESS_KEY_ID: "dGVzdA=="
   AWS_SECRET_ACCESS_KEY: "dGVzdA=="
+  AWS_REGION: "ZXUtd2VzdC0z"
 ---
 apiVersion: keda.sh/v1alpha1
 kind: TriggerAuthentication
@@ -21,3 +22,6 @@ spec:
   - parameter: awsSecretAccessKey
     name: keda-aws-secrets
     key: AWS_SECRET_ACCESS_KEY
+  - parameter: awsRegion
+    name: keda-aws-secrets
+    key: AWS_REGION
