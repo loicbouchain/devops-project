@@ -23,3 +23,9 @@ spec:
           value: "http://host.docker.internal:4566"
         - name: BUCKET_NAME
           value: "mon-bucket-terraform"
+        - name: AWS_REGION
+          value: "eu-west-3"
+        - name: AWS_ACCESS_KEY_ID
+          value: "test"     
+        - name: AWS_SECRET_ACCESS_KEY
+          value: "test" 
