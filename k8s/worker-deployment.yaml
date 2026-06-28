@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker-deployment
+spec:
+  replicas: 2 # On demande 2 copies (pods) du worker pour la haute disponibilité
+  selector:
+    matchLabels:
+      app: my-worker
+  template:
+    metadata:
+      labels:
+        app: my-worker
+    spec:
+      containers:
+      - name: worker
+        image: mon-worker:v1
+        imagePullPolicy: IfNotPresent # Très important pour Kind : ne cherche pas sur internet
+        ports:
+        - containerPort: 3000
+        env:
+        - name: AWS_ENDPOINT
+          value: "http://host.docker.internal:4566"
+        - name: BUCKET_NAME
+          value: "mon-bucket-terraform"

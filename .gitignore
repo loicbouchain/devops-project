@@ -1,0 +1,11 @@
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+node_modules/
+npm-debug.log
+.env
+kubectl
+kind
+.DS_Store
+*.log

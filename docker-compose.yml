@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  # 1. Le faux AWS (LocalStack)
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - "4566:4566"            # Le port unique pour tous les services AWS simulés
+    environment:
+      - SERVICES=s3,sqs        # On dit à LocalStack de n'activer que S3 et SQS
+      - LOCALSTACK_AUTH_TOKEN=ls-bakosUYa-JOcE-8442-gASe-VOfU1136ec30
+
+  # 2. Ton API
+  api:
+    build: ./api
+    ports:
+      - "3000:3000"
+    environment:
+      - AWS_ENDPOINT=http://localstack:4566
+      - AWS_REGION=eu-west-3
+      - QUEUE_URL=http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/ma-file-attente
+      - BUCKET_NAME=mon-bucket-local
+    depends_on:
+      - localstack
+
+  # 3. Ton Worker
+  worker:
+    build: ./worker
+    environment:
+      - AWS_ENDPOINT=http://localstack:4566
+      - AWS_REGION=eu-west-3
+      - QUEUE_URL=http://sqs.us-east-1.localhost.localstack.cloud:4566/000000000000/ma-file-attente
+      - BUCKET_NAME=mon-bucket-local
+    depends_on:
+      - localstack

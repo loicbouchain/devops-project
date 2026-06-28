@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+spec:
+  replicas: 2 # On demande 2 copies (pods) de l'API pour la haute disponibilité
+  selector:
+    matchLabels:
+      app: my-api
+  template:
+    metadata:
+      labels:
+        app: my-api
+    spec:
+     containers:
+      - name: api
+        image: mon-api:v1
+        env:
+        - name: AWS_REGION
+          value: "eu-west-3"
+        - name: AWS_ENDPOINT
+          value: "http://host.docker.internal:4566"
+        - name: BUCKET_NAME
+          value: "mon-bucket-terraform"
+        - name: QUEUE_URL
+          value: "http://sqs.eu-west-3.localhost.localstack.cloud:4566/000000000000/ma-file-terraform" 
+          # 💡 Vérifie bien ce nom : il doit correspondre au nom défini dans ton terraform
